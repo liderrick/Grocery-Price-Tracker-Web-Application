@@ -1,6 +1,6 @@
 # Grocery Price Tracker Web Application
 
-This web application is a simple crowd-sourced grocery price tracker. Thus, it relies on its users to keep the database updated. Non-registered users can only view the data. Registered users gain the ability to add, modify, and delete data. Check out a running test version of the web app [here](https://dlgrocery-price-tracker.herokuapp.com). Use the provided login credentials in Step 4 below if you do not wish to make an account.
+This web application is a simple crowd-sourced grocery price tracker. Thus, it relies on its users to keep the database updated. Non-registered users can only view the data. Registered users gain the ability to add, modify, and delete data. Check out a running test version of the web app [here](https://dlgrocery-price-tracker.herokuapp.com). Use the provided login credentials in step 5 below if you do not wish to make an account.
 
 ## Instructions to run locally
 1. Enter credentials to MySQL database in `main.js` and `dbcon.js`.

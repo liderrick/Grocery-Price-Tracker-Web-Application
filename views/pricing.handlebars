@@ -1,0 +1,127 @@
+<div class="container">
+   <header class="header clearfix">
+     <nav>
+        <ul class="nav nav-pills float-right">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          {{#if isAuthenticated}}
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+          {{else}}
+          <li class="nav-item">
+            <a class="nav-link" href="/signup">Signup</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          {{/if}}
+
+        </ul>
+      </nav>
+      <h3 class="text-muted">Grocery Price Tracker</h3>
+    </header>
+    
+    <br>
+    {{#if isAuthenticated}}
+    <div>
+      <button type="button" class="btn btn-success" onclick="location.href='/pricing/newpricing'">Add a new pricing</button>
+    </div>
+    {{/if}}
+    <br>
+    <div>
+        <form id="display-pricing" action="/pricing/display" method="post">
+          <div class="input-group">
+            <label class="col-sm-3" for="display-pricing">Display all pricings by</label>
+            <select class="form-control col-sm-3" id="item_name_order" name="item_name_order">
+                <option value="asc">Item name ascending (A - Z)</option>
+                <option value="desc">Item name descending (Z - A)</option>
+            </select>
+            <select class="form-control col-sm-3" id="price_order" name="price_order">
+                <option value="asc">Price ascending ($ - $$$)</option>
+                <option value="desc">Price descending ($$$ - $)</option>
+            </select>
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-secondary" type="button">Search</button>
+            </span>
+          </div>
+        </form>
+    </div>
+    <br>
+    <div>
+      <form id="search-pricing" action="/pricing/search" method="post">
+        <div class="input-group">
+          <label class="col-sm-3" for="search">Search by item & location</label>
+          <input type="text" class="form-control col-sm-4" id = "search" name="search" placeholder="E.g. Apple" aria-label="Search by keyword">
+          <select class="form-control col-sm-4" id="searchstore" name="searchstore">
+            <option value="0">All stores</option>
+            {{#each store}}
+                <option value="{{store_id}}">{{store_name}}</option>
+            {{/each}}
+          </select>
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-secondary" type="button">Search</button>
+          </span>
+        </div>
+      </form>
+    </div>
+    <br><br>
+
+    {{#if message}}
+      <h4>{{message}}</h4>
+    {{/if}}
+
+    {{#if item}}
+      <h4>Existing pricings</h4>
+      <br>
+
+      {{#each item}}
+        {{#if hasPricing}}
+          <div class="card">
+            <h4 class="card-header">{{item_name}}</h4>
+            <div class="card-body">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col" col width="300">Store</th>
+                    <th scope="col" col width="200">Price</th>
+                    <th scope="col" col width="300">Last Update</th>
+                    <th scope="col" col width="300">Updated By</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each pricing}}
+                    <tr>
+                      <td>{{store_name}}</td>
+                      <td>${{price}}</td>
+                      <td>{{created_at}}</td>
+                      <td>{{username}}</td>
+                      <td>
+                        {{#if ../../../isAuthenticated}}
+                        <button type="button" class="btn btn-primary" onclick="location.href='/pricing/{{../../item_id}}/{{store_id}}'">Update</button>
+                        {{/if}}
+                      </td>
+                      <td>
+                        {{#if ../../../isAuthenticated}}
+                        <button  type="button" class="btn btn-danger" onclick="deletePricing({{../../item_id}},{{store_id}})">Delete</button>
+                        {{/if}}
+                      </td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br>
+        {{/if}}
+      {{/each}}
+    {{/if}}
+    
+    <br><br>
+</div>
+<script defer>selectItemNameOrder("{{item_name_order}}");</script>
+<script defer>selectPriceOrder("{{price_order}}");</script>
+<script defer>selectSearchStore("{{searchstore}}");</script>

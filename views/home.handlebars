@@ -1,0 +1,90 @@
+
+<div class="container">
+    <header class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills float-right">
+            <li class="nav-item">
+              <a class="nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            {{#if isAuthenticated}}
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            {{else}}
+            <li class="nav-item">
+              <a class="nav-link" href="/signup">Signup</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
+            </li>
+            {{/if}}
+          </ul>
+        </nav>
+        <h3 class="text-muted">Grocery Price Tracker</h3>
+      </header>
+ 
+  <br>
+  {{#if isAuthenticated}}
+  <h2>Welcome {{username}}</h2>
+  <br>
+  {{/if}}
+  
+  <h3>Store</h3>
+  <div class="row">
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Manage Chains</h4>
+            <p class="card-text">View, add and modify a chain.</p>
+            <a href="/chain" class="btn btn-primary">Go</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Manage stores</h4>
+            <p class="card-text">View, add and modify a store.</p>
+            <a href="/store" class="btn btn-primary">Go</a>
+          </div>
+        </div>
+      </div>
+  </div>
+  <br>
+  <h3>Item</h3>
+  <div class="row">
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Manage categories</h4>
+            <p class="card-text">View, add and modify a category.</p>
+            <a href="/category" class="btn btn-primary">Go</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Manage items</h4>
+            <p class="card-text">View, add and modify an item.</p>
+            <a href="/item" class="btn btn-primary">Go</a>
+          </div>
+        </div>
+      </div>
+  </div>
+  
+  <br>
+  <h3>Pricing</h3>
+  <div class="row">
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Manage pricing</h4>
+            <p class="card-text">Update pricing for any food item at any store.</p>
+            <a href="/pricing" class="btn btn-primary">Go</a>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+

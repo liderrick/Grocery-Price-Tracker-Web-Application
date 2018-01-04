@@ -1,0 +1,56 @@
+<div class="container">
+   <header class="header clearfix">
+     <nav>
+        <ul class="nav nav-pills float-right">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          {{#if isAuthenticated}}
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+          {{else}}
+          <li class="nav-item">
+            <a class="nav-link" href="/signup">Signup</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          {{/if}}
+        </ul>
+      </nav>
+      <h3 class="text-muted">Grocery Price Tracker</h3>
+    </header>
+    <br>
+    
+    <h4>Update pricing:</h4>
+    <br>
+
+    <form id="update-pricing" action="/pricing" method="post">
+      <div class="form-group row">
+        <label for="item" class="col-sm-2 col-form-label">Selected Item</label>
+        <div class="col-sm-6">
+          <input type="text" readonly class="form-control" id="item" name="item" value="{{pricing.item_name}}">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="store" class="col-sm-2 col-form-label">Selected Store</label>
+        <div class="col-sm-6">
+          <input type="text" readonly class="form-control" id="store" name="store" value="{{pricing.store_name}}">
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <label for="price" class="col-sm-2 col-form-label">Item Price (USD)</label>
+        <div class="col-sm-5 input-group">
+          <span class="input-group-addon">$</span>
+          <input type="number" min="0.00" step="0.01" max="9999999999999" class="form-control" id="price" name="price" placeholder="Enter item price (required)" value="{{pricing.price}}" required>
+        </div>
+      </div>
+      
+      <button type="button" class="btn btn-primary" onclick="updatePricing({{item_id}},{{store_id}})">Update pricing</button>
+      <button type="button" class="btn btn-secondary" onclick="location.href='/pricing'">Back</button>
+    </form>
+
+</div>

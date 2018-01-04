@@ -1,0 +1,111 @@
+<div class="container">
+   <header class="header clearfix">
+     <nav>
+        <ul class="nav nav-pills float-right">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          {{#if isAuthenticated}}
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+          {{else}}
+          <li class="nav-item">
+            <a class="nav-link" href="/signup">Signup</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          {{/if}}
+
+        </ul>
+      </nav>
+      <h3 class="text-muted">Grocery Price Tracker</h3>
+    </header>
+    
+    <br>
+    {{#if isAuthenticated}}
+    <div>
+      <button type="button" class="btn btn-success" onclick="location.href='/item/newitem'">Add a new item</button>
+    </div>
+    {{/if}}
+    <br>
+    <div>
+      <button type="button" class="btn btn-primary" onclick="location.href='/item/display/asc'">Show all items ascending (A - Z)</button>
+      <button type="button" class="btn btn-primary" onclick="location.href='/item/display/desc'">Show all items descending (Z - A)</button>
+    </div>
+    <br>
+      <div>
+        <form id="search-item-category" action="/item/searchcategory" method="post">
+          <div class="input-group">
+            <label class="col-sm-3" for="searchcategory">Search by category</label>
+            <select class="form-control col-sm-5" id="searchcategory" name="searchcategory">
+              {{#each category}}
+                  <option value="{{id}}">{{category_name}}</option>
+              {{/each}}
+            </select>
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-secondary" type="button">Search</button>
+            </span>
+          </div>
+        </form>
+      </div>
+    <br>
+    <div>
+      <form id="search-item" action="/item/search" method="post">
+        <div class="input-group">
+          <label class="col-sm-3" for="search">Search by item keyword</label>
+          <input type="text" class="form-control col-sm-5" id = "search" name="search" placeholder="E.g. Apple" aria-label="Search by keyword">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-secondary" type="button">Search</button>
+          </span>
+        </div>
+      </form>
+    </div>
+    <br><br>
+    
+    {{#if message}}
+      <h4>{{message}}</h4>
+    {{/if}}
+
+    {{#if item}}
+      <h4>Existing items</h4>
+      
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Unit</th>
+            <th scope="col">Barcode</th>
+            <th scope="col">Categories</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+        {{#each item}} 
+          <tr>
+            <td>{{item_name}}</td>
+            <td>{{item_unit}}</td>
+            <td>{{item_barcode}}</td>
+            <td>
+              {{#each category}}
+                <span class="badge badge-pill badge-secondary">{{category_name}}</span>
+              {{/each}}
+            </td>
+            <td>
+              {{#if ../isAuthenticated}}
+              <button type="button" class="btn btn-primary" onclick="location.href='/item/{{id}}'">Update</button>
+              <button  type="button" class="btn btn-danger" onclick="deleteItem({{id}})">Delete</button>
+              {{/if}}
+            </td>
+          </tr>
+        {{/each}} 
+        </tbody>
+      </table>
+    {{/if}}
+    
+    <br><br>
+</div>
+{{#if searchcategory}}
+  <script defer>selectSearchCategory({{searchcategory}});</script>
+{{/if}}

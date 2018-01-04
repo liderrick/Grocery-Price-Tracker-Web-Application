@@ -1,0 +1,83 @@
+<div class="container">
+     <header class="header clearfix">
+       <nav>
+          <ul class="nav nav-pills float-right">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            {{#if isAuthenticated}}
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            {{else}}
+            <li class="nav-item">
+              <a class="nav-link" href="/signup">Signup</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
+            </li>
+            {{/if}}
+
+          </ul>
+        </nav>
+        <h3 class="text-muted">Grocery Price Tracker</h3>
+      </header>
+      
+     <br>
+     {{#if isAuthenticated}}
+     <h4>Add a chain</h4>
+     <form class="form-inline"  id="addchain" action="/chain" method="post">
+          <label class="sr-only" for="addchain">Add chain</label>
+          <input type="text" class="form-control mb-10 mr-sm-2 mb-sm-0" id="chainName" name= "chainName" placeholder="Enter a chain name">
+          <button type="submit" class="btn btn-success">Add</button>
+    </form>
+    {{/if}}
+    <br>
+    <div>
+      <button type="button" class="btn btn-primary" onclick="location.href='/chain/display/asc'">Show all chains ascending (A - Z)</button>
+      <button type="button" class="btn btn-primary" onclick="location.href='/chain/display/desc'">Show all chains descending (Z - A)</button>
+    </div>
+    <br>
+    <div>
+      <form id="search-chain" action="/chain/search" method="post">
+        <div class="input-group">
+          <label class="col-sm-3" for="search">Search by chain keyword</label>
+          <input type="text" class="form-control col-sm-5" id = "search" name="search" placeholder="E.g. Costco" aria-label="Search by keyword">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-secondary" type="button">Search</button>
+          </span>
+        </div>
+      </form>
+    </div>
+    <br><br>
+
+
+  {{#if message}}
+    <h4>{{message}}</h4>
+  {{/if}}
+
+    {{#if chain}}
+    <h4>Existing chains</h4>
+
+      {{#each chain}} 
+      <ul class="list-group" id="udpate-chain">
+        <div class="row">
+          <div class="col-4">
+            <input type="text" class="form-control" id="chain_name{{id}}" value="{{chain_name}}" name="chain_name" required>
+            <br>
+          </div>
+          <div class="col-4">
+            {{#if ../isAuthenticated}}
+            <button type="button" class="btn btn-primary" onclick="updateChain({{id}})">Update</button>
+            <button  type="button" class="btn btn-danger" onclick="deleteChain({{id}})">Delete</button>
+            {{/if}}
+          </div>
+
+        </div>
+      </ul>
+      {{/each}}
+    {{/if}}
+
+    <br><br>
+</div>
+

@@ -1,0 +1,33 @@
+<div class="container">
+   <header class="header clearfix">
+     <nav>
+        <ul class="nav nav-pills float-right">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          {{#if isAuthenticated}}
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+          {{else}}
+          <li class="nav-item">
+            <a class="nav-link" href="/signup">Signup</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          {{/if}}
+          
+        </ul>
+      </nav>
+      <h3 class="text-muted">Grocery Price Tracker</h3>
+    </header>
+    <br>
+    
+    <h4>Successfully added pricing to <font color="DarkOrange">{{item_name}}</font> for <font color="DarkOrange">{{store_name}}</font>!</h4>
+    
+    <br>  
+    <button type="button" class="btn btn-success" onclick="location.href='/pricing'">Back to pricing page</button>
+    <button type="button" class="btn btn-primary" onclick="location.href='/pricing/newpricing'">Add another pricing</button>
+    <br>
+</div>

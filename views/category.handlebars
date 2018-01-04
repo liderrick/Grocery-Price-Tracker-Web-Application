@@ -1,0 +1,81 @@
+<div class="container">
+ <header class="header clearfix">
+   <nav>
+      <ul class="nav nav-pills float-right">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        {{#if isAuthenticated}}
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+        {{else}}
+        <li class="nav-item">
+          <a class="nav-link" href="/signup">Signup</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        {{/if}}
+        
+      </ul>
+    </nav>
+    <h3 class="text-muted">Grocery Price Tracker</h3>
+  </header>
+  
+  <br>
+  {{#if isAuthenticated}}
+  <h4>Add a category</h4>
+  <form class="form-inline"  id="addcategory" action="/category" method="post">
+    <label class="sr-only" for="addcategory">Add category</label>
+    <input type="text" class="form-control mb-10 mr-sm-2 mb-sm-0" id="categoryName" name= "categoryName" placeholder="Enter a category name">
+    <button type="submit" class="btn btn-success">Add</button>
+  </form>
+  {{/if}}
+  <br>
+  <div>
+    <button type="button" class="btn btn-primary" onclick="location.href='/category/display/asc'">Show all categories ascending (A - Z)</button>
+    <button type="button" class="btn btn-primary" onclick="location.href='/category/display/desc'">Show all categories descending (Z - A)</button>
+  </div>
+  <br>
+  <div>
+    <form id="search-category" action="/category/search" method="post">
+      <div class="input-group">
+        <label class="col-sm-3" for="search">Search by category keyword</label>
+        <input type="text" class="form-control col-sm-5" id = "search" name="search" placeholder="E.g. Dairy" aria-label="Search by keyword">
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-secondary" type="button">Search</button>
+        </span>
+      </div>
+    </form>
+  </div>
+  <br><br>
+  
+  {{#if message}}
+    <h4>{{message}}</h4>
+  {{/if}}
+
+  {{#if category}}
+  <h4>Existing categories</h4>
+
+    {{#each category}} 
+    <ul class="list-group" id="update-category">
+      <div class="row">
+        <div class="col-4">
+          <input type="text" class="form-control" id="category_name{{id}}" value="{{category_name}}" name="category_name" required>
+          <br>
+        </div>
+        <div class="col-4">
+          {{#if ../isAuthenticated}}
+          <button type="button" class="btn btn-primary" onclick="updateCategory({{id}})">Update</button>
+          <button  type="button" class="btn btn-danger" onclick="deleteCategory({{id}})">Delete</button>
+          {{/if}}
+        </div>
+      </div>
+    </ul>
+    {{/each}} 
+  {{/if}}
+  
+  <br><br>
+</div>
+

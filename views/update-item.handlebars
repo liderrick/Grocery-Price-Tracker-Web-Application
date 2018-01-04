@@ -1,0 +1,65 @@
+<div class="container">
+   <header class="header clearfix">
+     <nav>
+        <ul class="nav nav-pills float-right">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          {{#if isAuthenticated}}
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+          {{else}}
+          <li class="nav-item">
+            <a class="nav-link" href="/signup">Signup</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          {{/if}}
+          
+        </ul>
+      </nav>
+      <h3 class="text-muted">Grocery Price Tracker</h3>
+    </header>
+    <br>
+    
+    <h4>Update {{item.0.item_name}}:</h4>
+    <br>
+
+    <form id="update-item" action="/item" method="post">
+      <div class="form-group row">
+        <label for="item_name" class="col-sm-2 col-form-label">Item Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="item_name" name="item_name" value="{{item.0.item_name}}" placeholder="Enter item name (required)" required>
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <label for="item_unit" class="col-sm-2 col-form-label">Item Unit</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="item_unit" name="item_unit" value="{{item.0.item_unit}}" placeholder="Enter item unit (optional)">
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <label for="item_barcode" class="col-sm-2 col-form-label">Item Barcode</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="item_barcode" name="item_barcode" value="{{item.0.item_barcode}}" placeholder="Enter item barcode (optional)">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="category">Select Categories (Hold down [Ctrl] to select multiple)</label>
+        <select multiple class="form-control" id="category" name="category" size="10" required>
+          {{#each category}}
+              <option value="{{id}}">{{category_name}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <button type="button" class="btn btn-primary" onclick="updateItem({{item.0.id}})">Update item</button>
+      <button type="button" class="btn btn-secondary" onclick="location.href='/item'">Back</button>
+    </form>
+
+</div>
+<script defer>selectCategory([{{item.0.array}}]);</script>

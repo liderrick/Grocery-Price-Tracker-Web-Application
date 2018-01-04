@@ -15,8 +15,10 @@ $ node main.js 3000
 ```
 4. Your app should now be running on [localhost:3000](http://localhost:3000/).
 5. To be able to make changes, sign up for an account. Or use the following credentials,
-    username: `default@example.com`
-    password: `default`
+
+   username: `default@example.com`
+
+   password: `default`
 
 ## Database ER Diagram
 ![](/db/db_er_diagram.png)
